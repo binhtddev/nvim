@@ -1,45 +1,106 @@
 return {
-  { import = "plugins.lang.langium" },
-  { import = "plugins.lang.typst" },
-  { import = "plugins.lang.ungrammar" },
-  { import = "plugins.lang.zig" },
+  -- { import = "plugins.lang.gherkin" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "css",
+        "editorconfig",
+        "html",
+        "make",
+        "kdl",
+        "mermaid",
+        "superhtml",
+        "ziggy",
+      },
+    },
+  },
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      vim.g.lazyvim_python_lsp = "basedpyright"
-    end,
     opts = {
+      diagnostics = {
+        float = {
+          border = "rounded",
+        },
+      },
       servers = {
-        dartls = {},
-        basedpyright = {
-          settings = {
-            -- Using Ruff's import organizer
-            basedpyright = {
-              disableOrganizeImports = true,
-              typeCheckingMode = "off",
-            },
+        biome = {},
+        cssls = {},
+        html = {},
+        unocss = {
+          root_dir = function(fname)
+            return require("lspconfig.util").root_pattern("uno.config.ts")(fname)
+          end,
+        },
+      },
+    },
+  },
+  {
+    "rustaceanvim",
+    opts = {
+      server = {
+        default_settings = {
+          ["rust-analyzer"] = {
+            check = { command = "check" },
+            -- checkOnSave = false,
           },
         },
       },
     },
   },
   {
-    "nvim-treesitter/nvim-treesitter",
+    "conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        nix = { "alejandra" },
+      },
+    },
+  },
+  {
+    "nvim-lint",
+    optional = true,
     opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "dart", "elm", "kdl", "make", "css", "scss" })
+      if opts.linters_by_ft and opts.linters_by_ft.markdown then
+        opts.linters_by_ft.markdown = {}
       end
     end,
   },
   {
-    "mfussenegger/nvim-jdtls",
-    opts = {
-      jdtls = function(opts)
-        local install_path = require("mason-registry").get_package("jdtls"):get_install_path()
-        local jvmArg = "-javaagent:" .. install_path .. "/lombok.jar"
-        table.insert(opts.cmd, "--jvm-arg=" .. jvmArg)
-        return opts
-      end,
-    },
+    "nvim-lspconfig",
+    opts = function(_, opts)
+      local ensure_installed = {
+        -- astro = true,
+        -- tailwindcss = true,
+        -- unocss = true,
+        -- volar = true,
+        -- vtsls = true,
+      }
+      for server, server_opts in pairs(opts.servers) do
+        if type(server_opts) == "table" and not ensure_installed[server] then
+          server_opts.mason = false
+        end
+      end
+
+      local disabled_method_map = {
+        ["textDocument/formatting"] = true,
+        ["textDocument/rangeFormatting"] = true,
+      }
+      local origin_supports_method = vim.lsp.client.supports_method
+      vim.lsp.client.supports_method = function(self_client, method, ...)
+        if disabled_method_map[method] then
+          return false
+        end
+        return origin_supports_method(self_client, method, ...)
+      end
+
+    end,
+  },
+  {
+    "mason.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = {
+        -- "markdown-toc",
+      }
+    end,
   },
 }

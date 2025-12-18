@@ -1,5 +1,5 @@
 root = true
 
-[*.{lua,scm}]
+[*.{nix,lua,scm}]
 indent_style = space
 indent_size = 2
