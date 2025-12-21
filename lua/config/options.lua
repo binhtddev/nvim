@@ -50,7 +50,7 @@ vim.o.spelloptions = "camel,noplainbuffer"
 
 -- vim.lsp.set_log_level("trace")
 
-require("vim.lsp.log").set_format_func(vim.inspect)
+-- require("vim.lsp.log").set_format_func(vim.inspect)
 
 vim.filetype.add({
   pattern = {

@@ -1,7 +1,7 @@
 return {
   -- { import = "plugins.lang.gherkin" },
   {
-    "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter",
     opts = {
       ensure_installed = {
         "css",
@@ -16,7 +16,7 @@ return {
     },
   },
   {
-    "neovim/nvim-lspconfig",
+    "nvim-lspconfig",
     opts = {
       diagnostics = {
         float = {
@@ -51,9 +51,9 @@ return {
   {
     "conform.nvim",
     opts = {
-      formatters_by_ft = {
-        nix = { "alejandra" },
-      },
+      -- formatters_by_ft = {
+      --   nix = { "alejandra" },
+      -- },
     },
   },
   {
@@ -92,7 +92,6 @@ return {
         end
         return origin_supports_method(self_client, method, ...)
       end
-
     end,
   },
   {
