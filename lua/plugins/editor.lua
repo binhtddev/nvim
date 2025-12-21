@@ -1,6 +1,7 @@
 return {
   {
-    "mini.files",
+    "nvim-mini/mini.files",
+    ---@module 'mini.files'
     keys = {
       {
         "-",
