@@ -58,6 +58,4 @@ vim.filetype.add({
   },
 })
 
-vim.g.lazyvim_python_lsp = "basedpyright"
-
 vim.treesitter.language.register("c_sharp", "csharp")
