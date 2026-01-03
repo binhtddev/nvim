@@ -1,5 +1,6 @@
 return {
   -- { import = "plugins.lang.gherkin" },
+  -- { import = "plugins.lang.rust" },
   {
     "nvim-treesitter",
     opts = {
@@ -31,19 +32,6 @@ return {
           root_dir = function(fname)
             return require("lspconfig.util").root_pattern("uno.config.ts")(fname)
           end,
-        },
-      },
-    },
-  },
-  {
-    "rustaceanvim",
-    opts = {
-      server = {
-        default_settings = {
-          ["rust-analyzer"] = {
-            check = { command = "check" },
-            -- checkOnSave = false,
-          },
         },
       },
     },
