@@ -81,17 +81,17 @@ return {
         end
       end
 
-      local disabled_method_map = {
-        ["textDocument/formatting"] = true,
-        ["textDocument/rangeFormatting"] = true,
-      }
-      local origin_supports_method = vim.lsp.client.supports_method
-      vim.lsp.client.supports_method = function(self_client, method, ...)
-        if disabled_method_map[method] then
-          return false
-        end
-        return origin_supports_method(self_client, method, ...)
-      end
+      -- local disabled_method_map = {
+      --   ["textDocument/formatting"] = true,
+      --   ["textDocument/rangeFormatting"] = true,
+      -- }
+      -- local origin_supports_method = vim.lsp.client.supports_method
+      -- vim.lsp.client.supports_method = function(self_client, method, ...)
+      --   if disabled_method_map[method] then
+      --     return false
+      --   end
+      --   return origin_supports_method(self_client, method, ...)
+      -- end
     end,
   },
   {
