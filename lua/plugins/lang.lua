@@ -1,6 +1,6 @@
 return {
   -- { import = "plugins.lang.gherkin" },
-  -- { import = "plugins.lang.rust" },
+  { import = "plugins.lang.rust" },
   {
     "nvim-treesitter",
     opts = {
@@ -11,8 +11,8 @@ return {
         "make",
         "kdl",
         "mermaid",
-        "superhtml",
-        "ziggy",
+        -- "superhtml",
+        -- "ziggy",
       },
     },
   },
