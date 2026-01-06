@@ -18,6 +18,7 @@ return {
       signature = { window = { border = blink_border } },
       keymap = {
         preset = "default",
+        ["<c-k>"] = {},
       },
       sources = {
         providers = {
