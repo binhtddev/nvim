@@ -1,5 +1,6 @@
 return {
   -- { import = "plugins.lang.gherkin" },
+  { import = "plugins.lang.json" },
   { import = "plugins.lang.rust" },
   {
     "nvim-treesitter",
@@ -25,7 +26,6 @@ return {
         },
       },
       servers = {
-        biome = {},
         cssls = {},
         html = {},
         unocss = {
