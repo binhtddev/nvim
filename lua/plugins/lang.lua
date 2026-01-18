@@ -37,6 +37,16 @@ return {
     },
   },
   {
+    "nvim-lspconfig",
+    opts = function(_, opts)
+      if opts.servers and opts.servers["*"] and opts.servers["*"].keys then
+        opts.servers["*"].keys = vim.tbl_filter(function(key)
+          return key[1] ~= "<c-k>"
+        end, opts.servers["*"].keys)
+      end
+    end,
+  },
+  {
     "conform.nvim",
     opts = {
       -- formatters_by_ft = {
